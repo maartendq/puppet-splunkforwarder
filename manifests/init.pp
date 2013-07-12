@@ -13,10 +13,13 @@
 # == Sample Usage:
 #
 class splunkforwarder (
-  $package               = $::splunkforwarder::params::package,
+  $package     = $::splunkforwarder::params::package,
+  $splunk_home = $::splunkforwarder::params::splunk_home,
+  $service     = $::splunkforwarder::params::service,
 ) inherits splunkforwarder::params {
 
-  class {'splunkforwarder::packages': }
-  class {'splunkforwarder::config' : }
+  include splunkforwarder::packages
+  include splunkforwarder::config
+  include splunkforwarder::service
 
 }

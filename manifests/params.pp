@@ -6,11 +6,14 @@ class splunkforwarder::params {
 
   case $::osfamily {
     'RedHat': {
-      $package = 'splunkforwarder'
+      $package     = 'splunkforwarder',
+      $splunk_home = '/opt/splunkforwarder',
+      $service     = 'splunk',
     }
 
     default: {
-      fail("Unsupported OS family: ${::osfamily}")
+      $package     = 'splunkforwarder',
+      $splunk_home = '/opt/splunkforwarder',
     }
   }
 }
