@@ -34,5 +34,6 @@ class splunkforwarder::config (
     gid        => 5201,
     home       => '/opt/splunkforwarder',
     require    => Group['splunk'],
+  }
 
 }
