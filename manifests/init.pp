@@ -20,7 +20,7 @@ class splunkforwarder (
   $splunk_home          = $::splunkforwarder::params::splunk_home,
   $service              = $::splunkforwarder::params::service,
   $splunk_servergroup   = 'indexers',
-  $splunk_serverlist    = 'splunk.splunk.com:9997',
+  $splunk_serverlist    = [],
 
 ) inherits splunkforwarder::params {
 

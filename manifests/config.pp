@@ -53,6 +53,7 @@ class splunkforwarder::config (
     ensure  => present,
     mode    => '0600',
     content => template("${module_name}/splunk_local_outputs.erb"),
+    notify  => Service[$service],
   }
 
   file { "${splunk_home}/etc/apps/search/local/":

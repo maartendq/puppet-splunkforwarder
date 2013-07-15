@@ -8,4 +8,4 @@ defaultGroup = <%= @splunk_servergroup %>
 
 [tcpout:<%= @splunk_servergroup %>]
 disabled = false
-server = <%= @splunk_serverlist %>
+server = <%= @splunk_serverlist.flatten.join(',') %>
