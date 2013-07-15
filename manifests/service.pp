@@ -21,8 +21,8 @@
 # * Update documentation
 #
 class splunkforwarder::service (
-  $splunk_home = $::logrotate::splunk_home,
-  $service     = $::logrotate::service,
+  $splunk_home = $::splunkforwarder::splunk_home,
+  $service     = $::splunkforwarder::service,
 ) inherits splunkforwarder {
 
   exec { 'splunk_initial_setup':
