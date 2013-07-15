@@ -2,6 +2,9 @@
 #
 # Initialize distro specific parameters/settings.
 #
+# == Todo:
+#
+# * Add ubuntu params
 class splunkforwarder::params {
 
   case $::osfamily {
