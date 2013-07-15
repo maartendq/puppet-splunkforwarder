@@ -19,8 +19,16 @@
 # == Todo:
 #
 # * Update documentation
+# * Make inputs.conf more generic
+# * Create augeas crap to add/remove monitors or servers in inputs/outputs
 #
 class splunkforwarder::config (
+  $owner                = $::splunkforwarder::group,
+  $group                = $::splunkforwarder::group,
+  $splunk_home          = $::splunkforwarder::splunk_home,
+  $splunk_servergroup   = $::splunkforwarder::splunk_servergroup,
+  $splunk_serverlist    = $::splunkforwarder::splunk_serverlist,
+  $splunk_inputs        = $::splunkforwarder::splunk_inputs,
 ) inherits splunkforwarder {
 
   group {'splunk':
@@ -34,6 +42,26 @@ class splunkforwarder::config (
     gid        => 5201,
     home       => '/opt/splunkforwarder',
     require    => Group['splunk'],
+  }
+
+  file { "${splunk_home}/etc/system/local/outputs.conf":
+    ensure  => present,
+    owner   => $owner,
+    group   => $group,
+    mode    => '0600',
+    replace => false,
+    content => template("${module_name}/splunk_local_outputs.erb"),
+    require => Package['splunkforwarder'],
+  }
+
+  file { "${splunk_home}/etc/apps/search/local/inputs.conf":
+    ensure  => present,
+    owner   => $owner,
+    group   => $group,
+    mode    => '0600',
+    replace => false,
+    content => template("${module_name}/splunk_local_inputs.erb"),
+    require => Package['splunkforwarder'],
   }
 
 }
