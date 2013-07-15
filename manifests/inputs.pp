@@ -11,20 +11,21 @@
 define splunkforwarder::inputs (
   $splunk_home       = $::splunkforwarder::splunk_home,
   $service           = $::splunkforwarder::service,
-  $inputs_ensure     = undef,
-  $inputs_title      = undef,
-  $inputs_monitor    = undef,
+  $inputs_ensure     = present,
+  $inputs_title,
+  $inputs_monitor,
+  $inputs_index,
   $inputs_blacklist  = undef,
   $inputs_sourcetype = undef,
-  $inputs_index      = undef,
 ) {
 
-  require splunkforwarder
+  include splunkforwarder
 
   Augeas {
     incl    => "${splunk_home}/etc/apps/search/local/inputs.conf",
     lens    => 'Splunk.lns',
     notify  => Service[$service],
+    require => File["${splunk_home}/etc/apps/search/local/inputs.conf"],
   }
 
 
