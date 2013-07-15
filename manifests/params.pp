@@ -6,16 +6,16 @@ class splunkforwarder::params {
 
   case $::osfamily {
     'RedHat': {
-      $owner       = 'splunk',
-      $group       = 'splunk',
-      $package     = 'splunkforwarder',
-      $splunk_home = '/opt/splunkforwarder',
-      $service     = 'splunk',
+      $owner       = 'splunk'
+      $group       = 'splunk'
+      $package     = 'splunkforwarder'
+      $splunk_home = '/opt/splunkforwarder'
+      $service     = 'splunk'
     }
 
     default: {
-      $package     = 'splunkforwarder',
-      $splunk_home = '/opt/splunkforwarder',
+      $package     = 'splunkforwarder'
+      $splunk_home = '/opt/splunkforwarder'
     }
   }
 }
