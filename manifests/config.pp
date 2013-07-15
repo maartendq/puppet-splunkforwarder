@@ -43,23 +43,28 @@ class splunkforwarder::config (
     require    => Group['splunk'],
   }
 
-  file { "${splunk_home}/etc/system/local/outputs.conf":
-    ensure  => present,
+  File {
     owner   => $owner,
     group   => $group,
+    require => Package['splunkforwarder'],
+  }
+
+  file { "${splunk_home}/etc/system/local/outputs.conf":
+    ensure  => present,
     mode    => '0600',
     content => template("${module_name}/splunk_local_outputs.erb"),
-    require => Package['splunkforwarder'],
+  }
+
+  file { "${splunk_home}/etc/apps/search/local/":
+    ensure => directory,
+    mode   => '0755',
   }
 
   file { "${splunk_home}/etc/apps/search/local/inputs.conf":
     ensure  => present,
-    owner   => $owner,
-    group   => $group,
     mode    => '0600',
     replace => false,
     content => template("${module_name}/splunk_local_inputs.erb"),
-    require => Package['splunkforwarder'],
   }
 
 }
