@@ -28,7 +28,6 @@ class splunkforwarder::config (
   $splunk_home          = $::splunkforwarder::splunk_home,
   $splunk_servergroup   = $::splunkforwarder::splunk_servergroup,
   $splunk_serverlist    = $::splunkforwarder::splunk_serverlist,
-  $splunk_inputs        = $::splunkforwarder::splunk_inputs,
 ) inherits splunkforwarder {
 
   group {'splunk':
@@ -49,7 +48,6 @@ class splunkforwarder::config (
     owner   => $owner,
     group   => $group,
     mode    => '0600',
-    replace => false,
     content => template("${module_name}/splunk_local_outputs.erb"),
     require => Package['splunkforwarder'],
   }
