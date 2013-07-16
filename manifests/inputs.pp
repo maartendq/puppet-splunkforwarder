@@ -9,17 +9,22 @@
 #
 #
 define splunkforwarder::inputs (
-  $splunk_home       = $::splunkforwarder::splunk_home,
-  $service           = $::splunkforwarder::service,
-  $inputs_ensure     = present,
-  $inputs_title,
   $inputs_monitor,
   $inputs_index,
+  $inputs_ensure     = present,
   $inputs_blacklist  = undef,
   $inputs_sourcetype = undef,
+  $splunk_home       = $::splunkforwarder::splunk_home,
+  $service           = $::splunkforwarder::service,
 ) {
 
   include splunkforwarder
+
+  if $title == '' {
+    fail('Can not create inputs with empty title/name')
+  } else {
+  $inputs_title = $title
+  }
 
   Augeas {
     incl    => "${splunk_home}/etc/apps/search/local/inputs.conf",
@@ -27,7 +32,6 @@ define splunkforwarder::inputs (
     notify  => Service[$service],
     require => File["${splunk_home}/etc/apps/search/local/inputs.conf"],
   }
-
 
   case $inputs_ensure {
     'present', default: {
