@@ -1,0 +1,11 @@
+<% if @inputs_blacklist and not @inputs_blacklist.empty? -%>
+set target[. = '<%= @inputs_monitor %>']/blacklist '<%= @inputs_blacklist %>'
+<% end -%>
+
+<% if @inputs_sourcetype and not @inputs_sourcetype.empty? -%>
+set target[. = '<%= @inputs_monitor %>']/sourcetype  '<%= @inputs_sourcetype %>'
+<% end -%>
+
+<% if @inputs_index and not @inputs_index.empty? -%>
+set target[. = '<%= @inputs_monitor %>']/index '<%= @inputs_index %>'
+<% end -%>
