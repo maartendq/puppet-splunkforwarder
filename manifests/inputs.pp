@@ -8,7 +8,8 @@
 # === Examples
 #
 # === TODO
-# Add removal of sourcetype/blacklist/index in update template if parameter is left out
+# Add removal of sourcetype/blacklist/index in update template
+# if parameter is left out
 define splunkforwarder::inputs (
   $inputs_monitor,
   $inputs_ensure     = present,
