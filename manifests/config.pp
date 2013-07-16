@@ -23,8 +23,9 @@
 # * Create augeas crap to add/remove monitors or servers in inputs/outputs
 #
 class splunkforwarder::config (
-  $owner                = $::splunkforwarder::group,
+  $owner                = $::splunkforwarder::owner,
   $group                = $::splunkforwarder::group,
+  $service              = $::splunkforwarder::service,
   $splunk_home          = $::splunkforwarder::splunk_home,
   $splunk_servergroup   = $::splunkforwarder::splunk_servergroup,
   $splunk_serverlist    = $::splunkforwarder::splunk_serverlist,
