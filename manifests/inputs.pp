@@ -7,11 +7,12 @@
 #
 # === Examples
 #
-#
+# === TODO
+# Add removal of sourcetype/blacklist/index in update template if parameter is left out
 define splunkforwarder::inputs (
   $inputs_monitor,
-  $inputs_index,
   $inputs_ensure     = present,
+  $inputs_index      = undef,
   $inputs_blacklist  = undef,
   $inputs_sourcetype = undef,
   $splunk_home       = $::splunkforwarder::splunk_home,
