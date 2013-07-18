@@ -2,7 +2,7 @@
 #
 # Initialize distro specific parameters/settings.
 #
-# == Todo:
+# == Todo
 #
 # * Add ubuntu params
 class splunkforwarder::params {

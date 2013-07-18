@@ -1,17 +1,14 @@
 # = Class: splunkforwarder
 #
-# This class installs splunkforwarder
+# This class installs splunkforwarder and sets up a basic configuration
 #
 # == Parameters:
 #
-# [splunk_servers] : Comma seperated list of all receiving splunk servers
+# [*splunk_servergroup*]
+#   Name of splunk receiving group, defaults to indexers
 #
-# == Actions:
-#  - Install splunkforwarder
-#
-# == Requires:
-#
-# == Sample Usage:
+# [*splunk_serverlist*]
+#   Array of all receiving splunk servers
 #
 class splunkforwarder (
   $owner                = $::splunkforwarder::params::owner,

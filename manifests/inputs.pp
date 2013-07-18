@@ -1,15 +1,31 @@
-# == Define: up_logrotate::rule
+# == Define: splunkforwarder::inputs
 #
-# Defines a logrotation schedule for a log file.
+# Defines a monitor for splunkforwarder
 #
 # === Parameters
 #
+# [*inputs_monitor*]
+#   Path of logfile that needs to be monitored (preceeded by monitor://)
+#
+# [*inputs_ensure*]
+#   Parameter to be able to remove monitor
+#
+# [*inputs_index*]
+#   Optional paramater - monitor index
+#
+# [*inputs_blacklist*]
+#   Optional paramater - monitor blacklist
+#
+# [*inputs_sourcetype*]
+#   Optional paramater - monitor sourcetype
 #
 # === Examples
 #
 # === TODO
-# Add removal of sourcetype/blacklist/index in update template
-# if parameter is left out
+# - Add removal of sourcetype/blacklist/index in update template
+#   if parameter is left out - TEST IT
+# - Provide example
+#
 define splunkforwarder::inputs (
   $inputs_monitor,
   $inputs_ensure     = present,
