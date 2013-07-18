@@ -5,5 +5,10 @@
 
 # Default logging
 [monitor:///var/log]
+<% if @inputs_local_blacklist and not @inputs_local_blacklist.empty? -%>
+blacklist = <%= @inputs_local_blacklist %>
+<% end -%>
+<% if @inputs_local_sourcetype and not @inputs_local_sourcetype.empty? -%>
+sourcetype = <%= @inputs_local_sourcetype %>
+<% end -%>
 index = default
-

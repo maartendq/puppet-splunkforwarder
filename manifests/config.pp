@@ -9,12 +9,14 @@
 # * Create augeas crap to add/remove monitors or servers in inputs/outputs
 #
 class splunkforwarder::config (
-  $owner                = $::splunkforwarder::owner,
-  $group                = $::splunkforwarder::group,
-  $service              = $::splunkforwarder::service,
-  $splunk_home          = $::splunkforwarder::splunk_home,
-  $splunk_servergroup   = $::splunkforwarder::splunk_servergroup,
-  $splunk_serverlist    = $::splunkforwarder::splunk_serverlist,
+  $inputs_local_blacklist  = undef,
+  $inputs_local_sourcetype = undef,
+  $owner                   = $::splunkforwarder::owner,
+  $group                   = $::splunkforwarder::group,
+  $service                 = $::splunkforwarder::service,
+  $splunk_home             = $::splunkforwarder::splunk_home,
+  $splunk_servergroup      = $::splunkforwarder::splunk_servergroup,
+  $splunk_serverlist       = $::splunkforwarder::splunk_serverlist,
 ) inherits splunkforwarder {
 
   group {'splunk':
