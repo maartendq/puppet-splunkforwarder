@@ -18,6 +18,7 @@ class splunkforwarder (
   $service              = $::splunkforwarder::params::service,
   $splunk_servergroup   = 'indexers',
   $splunk_serverlist    = [],
+  $splunk_inputs        = {},
 
 ) inherits splunkforwarder::params {
 

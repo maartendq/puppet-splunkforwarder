@@ -11,6 +11,7 @@
 class splunkforwarder::config (
   $inputs_local_blacklist  = undef,
   $inputs_local_sourcetype = undef,
+  $splunk_inputs           = $::splunkforwarder::splunk_inputs,
   $owner                   = $::splunkforwarder::owner,
   $group                   = $::splunkforwarder::group,
   $service                 = $::splunkforwarder::service,
@@ -56,5 +57,7 @@ class splunkforwarder::config (
     replace => false,
     content => template("${module_name}/splunk_local_inputs.erb"),
   }
+
+  create_resources('splunkforwarder::inputs', $splunk_inputs)
 
 }

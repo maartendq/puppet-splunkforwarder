@@ -36,8 +36,6 @@ define splunkforwarder::inputs (
   $service           = $::splunkforwarder::service,
 ) {
 
-  include splunkforwarder
-
   if $title == '' {
     fail('Can not create inputs with empty title/name')
   } else {
