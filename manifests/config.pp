@@ -54,6 +54,7 @@ class splunkforwarder::config (
   file { "${splunk_home}/etc/apps/search/local/inputs.conf":
     ensure  => present,
     mode    => '0600',
+    replace => false,
     content => template("${module_name}/splunk_local_inputs.erb"),
   }
 
