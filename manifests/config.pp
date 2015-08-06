@@ -9,8 +9,6 @@
 # * Create augeas crap to add/remove monitors or servers in inputs/outputs
 #
 class splunkforwarder::config (
-  $inputs_local_blacklist  = undef,
-  $inputs_local_sourcetype = undef,
   $splunk_inputs           = $::splunkforwarder::splunk_inputs,
   $owner                   = $::splunkforwarder::owner,
   $group                   = $::splunkforwarder::group,
