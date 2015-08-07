@@ -16,7 +16,7 @@ class splunkforwarder (
   $package              = $::splunkforwarder::params::package,
   $splunk_home          = $::splunkforwarder::params::splunk_home,
   $service              = $::splunkforwarder::params::service,
-  $splunk_servertype    = 'cloud',
+  $splunk_servertype    = 'enterprise',
   $splunk_servergroup   = 'indexers',
   $splunk_serverlist    = [],
   $splunk_inputs        = {},
