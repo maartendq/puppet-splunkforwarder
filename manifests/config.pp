@@ -10,6 +10,7 @@
 #
 class splunkforwarder::config (
   $splunk_inputs           = $::splunkforwarder::splunk_inputs,
+  $package                 = $::splunkforwarder::package,
   $owner                   = $::splunkforwarder::owner,
   $group                   = $::splunkforwarder::group,
   $username                = $::splunkforwarder::username,
@@ -26,7 +27,7 @@ class splunkforwarder::config (
   File {
     owner   => $owner,
     group   => $group,
-    require => Package['splunkforwarder'],
+    require => Package[$package],
   }
 
   if $splunk_servertype == 'cloud' {
