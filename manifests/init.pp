@@ -16,14 +16,22 @@ class splunkforwarder (
   $package              = $::splunkforwarder::params::package,
   $splunk_home          = $::splunkforwarder::params::splunk_home,
   $service              = $::splunkforwarder::params::service,
+  $splunk_servertype    = 'cloud',
   $splunk_servergroup   = 'indexers',
   $splunk_serverlist    = [],
   $splunk_inputs        = {},
-
+  $username             = 'admin',
+  $password             = 'changeme',
+  $splunk_cloudapp      = undef,
+  $puppet_fileserver    = undef,
 ) inherits splunkforwarder::params {
 
-  include splunkforwarder::packages
-  include splunkforwarder::config
-  include splunkforwarder::service
-
+  if $splunk_servertype in ['cloud', 'enterprise'] {
+    include splunkforwarder::install
+    include splunkforwarder::service
+    include splunkforwarder::config
+  }
+  else {
+    fail("Forwarder type: ${type} is not a supported Splunkforwarder type.")
+  }
 }

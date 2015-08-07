@@ -12,24 +12,16 @@ class splunkforwarder::config (
   $splunk_inputs           = $::splunkforwarder::splunk_inputs,
   $owner                   = $::splunkforwarder::owner,
   $group                   = $::splunkforwarder::group,
+  $username                = $::splunkforwarder::username,
+  $password                = $::splunkforwarder::password,
   $service                 = $::splunkforwarder::service,
   $splunk_home             = $::splunkforwarder::splunk_home,
+  $splunk_servertype       = $::splunkforwarder::splunk_servertype,
   $splunk_servergroup      = $::splunkforwarder::splunk_servergroup,
   $splunk_serverlist       = $::splunkforwarder::splunk_serverlist,
+  $splunk_cloudapp         = $::splunkforwarder::splunk_cloudapp,
+  $puppet_fileserver       = $::splunkforwarder::puppet_fileserver,
 ) inherits splunkforwarder {
-
-  group {'splunk':
-    ensure  => present,
-    gid     => 5201,
-  }
-
-  user {'splunk':
-    ensure     => present,
-    uid        => 5201,
-    gid        => 5201,
-    home       => '/opt/splunkforwarder',
-    require    => Group['splunk'],
-  }
 
   File {
     owner   => $owner,
@@ -37,11 +29,42 @@ class splunkforwarder::config (
     require => Package['splunkforwarder'],
   }
 
-  file { "${splunk_home}/etc/system/local/outputs.conf":
-    ensure  => present,
-    mode    => '0600',
-    content => template("${module_name}/splunk_local_outputs.erb"),
-    notify  => Service[$service],
+  if $splunk_servertype == 'cloud' {
+    if $puppet_fileserver and $splunk_cloudapp {
+      file { "${splunk_home}/${splunk_cloudapp}":
+        ensure => present,
+        mode   => '0600',
+        #source  => "puppet:///modules/${module_name}/100_unifiedpost_splunkcloud-nix.tar.gz",
+        source => "${puppet_fileserver}/${splunk_cloudapp}",
+      }
+
+      exec { 'install_splunkcloud_app':
+        command => "${splunk_home}/bin/splunk install app ${splunk_home}/${splunk_cloudapp} -update 1 -auth ${username}:${password}",
+        creates => "${splunk_home}/etc/apps/100_unifiedpost_splunkcloud-nix",
+        require => [
+          File["${splunk_home}/${splunk_cloudapp}"],
+          Service[$service],
+        ],
+        notify => Exec['restart_after_appinstall'],
+      }
+
+      exec { 'restart_after_appinstall':
+        command => "/etc/init.d/splunk restart",
+        refreshonly => true,
+      }
+    }
+    else {
+      fail("Please define puppet_fileserver and splunk_cloudapp when using Cloud servertype")
+    }
+  }
+
+  else {
+    file { "${splunk_home}/etc/system/local/outputs.conf":
+      ensure  => present,
+      mode    => '0600',
+      content => template("${module_name}/splunk_local_outputs.erb"),
+      notify  => Service[$service],
+    }
   }
 
   file { "${splunk_home}/etc/apps/search/local/":
