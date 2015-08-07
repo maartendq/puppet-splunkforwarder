@@ -15,13 +15,13 @@ class splunkforwarder::install (
 
   group {'splunk':
     ensure  => present,
-    gid     => 5201,
+    gid     => 60000,
   }
 
   user {'splunk':
     ensure     => present,
-    uid        => 5201,
-    gid        => 5201,
+    uid        => 60000,
+    gid        => 60000,
     home       => '/opt/splunkforwarder',
     require    => Group['splunk'],
   }
