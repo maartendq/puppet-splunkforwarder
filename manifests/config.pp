@@ -35,13 +35,15 @@ class splunkforwarder::config (
       file { "${splunk_home}/${splunk_cloudapp}":
         ensure => present,
         mode   => '0600',
-        #source  => "puppet:///modules/${module_name}/100_unifiedpost_splunkcloud-nix.tar.gz",
         source => "${puppet_fileserver}/${splunk_cloudapp}",
       }
 
+      $cloudapp_folder = regsubst($splunk_cloudapp, '.tar.gz', '')
+      notify{"The value is: ${cloudapp_folder}": }
+
       exec { 'install_splunkcloud_app':
         command => "${splunk_home}/bin/splunk install app ${splunk_home}/${splunk_cloudapp} -update 1 -auth ${username}:${password}",
-        creates => "${splunk_home}/etc/apps/100_unifiedpost_splunkcloud-nix",
+        creates => "${splunk_home}/etc/apps/$cloudapp_folder",
         require => [
           File["${splunk_home}/${splunk_cloudapp}"],
           Service[$service],
