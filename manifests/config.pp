@@ -39,7 +39,6 @@ class splunkforwarder::config (
       }
 
       $cloudapp_folder = regsubst($splunk_cloudapp, '.tar.gz', '')
-      notify{"The value is: ${cloudapp_folder}": }
 
       exec { 'install_splunkcloud_app':
         command => "${splunk_home}/bin/splunk install app ${splunk_home}/${splunk_cloudapp} -update 1 -auth ${username}:${password}",
