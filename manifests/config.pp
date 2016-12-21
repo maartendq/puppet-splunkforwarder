@@ -18,17 +18,19 @@ class splunkforwarder::config (
   $splunk_home             = $::splunkforwarder::splunk_home,
   $splunk_servergroup      = $::splunkforwarder::splunk_servergroup,
   $splunk_serverlist       = $::splunkforwarder::splunk_serverlist,
+  $splunk_uid              = $::splunkforwarder::splunk_uid,
+  $splunk_gid              = $::splunkforwarder::splunk_gid,
 ) inherits splunkforwarder {
 
   group {'splunk':
     ensure  => present,
-    gid     => 5201,
+    gid     => $splunk_gid,
   }
 
   user {'splunk':
     ensure     => present,
-    uid        => 5201,
-    gid        => 5201,
+    uid        => $splunk_uid,
+    gid        => $splunk_gid,
     home       => '/opt/splunkforwarder',
     require    => Group['splunk'],
   }
