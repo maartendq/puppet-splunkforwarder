@@ -3,12 +3,3 @@
 ### Module:           '<%= scope.to_hash['module_name'] %>'
 ### Template source:  'MODULES<%= template_source.gsub(Regexp.new("^#{Puppet::Node::Environment.current[:modulepath].gsub(':','|')}"),"") %>'
 
-# Default logging
-[monitor:///var/log]
-<% if @inputs_local_blacklist and not @inputs_local_blacklist.empty? -%>
-blacklist = <%= @inputs_local_blacklist %>
-<% end -%>
-<% if @inputs_local_sourcetype and not @inputs_local_sourcetype.empty? -%>
-sourcetype = <%= @inputs_local_sourcetype %>
-<% end -%>
-index = default
