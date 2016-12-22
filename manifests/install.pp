@@ -3,9 +3,11 @@
 # Installation of the splunk package
 #
 class splunkforwarder::install (
-  $package = $::splunkforwarder::package,
-  $owner   = $::splunkforwarder::owner,
-  $group   = $::splunkforwarder::group,
+  $package      = $::splunkforwarder::package,
+  $owner        = $::splunkforwarder::owner,
+  $group        = $::splunkforwarder::group,
+  $splunk_uid   = $::splunkforwarder::splunk_uid,
+  $splunk_gid   = $::splunkforwarder::splunk_gid,
 ) inherits splunkforwarder {
 
   File {
@@ -15,13 +17,13 @@ class splunkforwarder::install (
 
   group {'splunk':
     ensure  => present,
-    gid     => 60000,
+    gid     => $splunk_gid,
   }
 
   user {'splunk':
     ensure     => present,
-    uid        => 60000,
-    gid        => 60000,
+    uid        => $splunk_uid,
+    gid        => $splunk_gid,
     home       => '/opt/splunkforwarder',
     require    => Group['splunk'],
   }
