@@ -33,7 +33,7 @@ class splunkforwarder::install (
   package { $package:
     ensure   => installed,
     provider => $pkg_provider,
-    source   => $pkg_sruc,
+    source   => $pkg_src,
     require  => User['splunk'],
   }
 
