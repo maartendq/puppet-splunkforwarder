@@ -4,6 +4,8 @@
 #
 class splunkforwarder::install (
   $package      = $::splunkforwarder::package,
+  $pkg_provider = $::splunkforwarder::pkg_provider,
+  $pkg_src      = $::splunkforwarder::pkg_src,
   $owner        = $::splunkforwarder::owner,
   $group        = $::splunkforwarder::group,
   $splunk_uid   = $::splunkforwarder::splunk_uid,
@@ -29,8 +31,10 @@ class splunkforwarder::install (
   }
 
   package { $package:
-    ensure  => installed,
-    require => User['splunk'],
+    ensure   => installed,
+    provider => $pkg_provider,
+    source   => $pkg_sruc,
+    require  => User['splunk'],
   }
 
   exec { 'splunk_initial_setup':

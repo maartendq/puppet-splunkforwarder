@@ -14,6 +14,8 @@ class splunkforwarder (
   $owner                = $::splunkforwarder::params::owner,
   $group                = $::splunkforwarder::params::group,
   $package              = $::splunkforwarder::params::package,
+  $pkg_provider         = $::splunkforwarder::params::pkg_provider,
+  $pkg_src              = $::splunkforwarder::params::pkg_src,
   $splunk_home          = $::splunkforwarder::params::splunk_home,
   $service              = $::splunkforwarder::params::service,
   $splunk_servertype    = 'enterprise',

@@ -22,21 +22,6 @@ class splunkforwarder::config (
   $splunk_serverlist       = $::splunkforwarder::splunk_serverlist,
   $splunk_uid              = $::splunkforwarder::splunk_uid,
   $splunk_gid              = $::splunkforwarder::splunk_gid,
-) inherits splunkforwarder {
-
-  group {'splunk':
-    ensure  => present,
-    gid     => $splunk_gid,
-  }
-
-  user {'splunk':
-    ensure     => present,
-    uid        => $splunk_uid,
-    gid        => $splunk_gid,
-    home       => '/opt/splunkforwarder',
-    require    => Group['splunk'],
-  }
-
   $splunk_cloudapp         = $::splunkforwarder::splunk_cloudapp,
   $puppet_fileserver       = $::splunkforwarder::puppet_fileserver,
 ) inherits splunkforwarder {
